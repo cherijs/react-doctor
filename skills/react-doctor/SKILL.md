@@ -10,8 +10,15 @@ Scans your React codebase for security, performance, correctness, and architectu
 
 ## Usage
 
+Pass the **absolute path** to the project directory being scanned (never use `.`):
+
 ```bash
-node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js . --verbose --diff
+node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js <PROJECT_DIR> --verbose --diff
+```
+
+Example: to scan the dashboard app:
+```bash
+node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js /Users/cherijs/_REPO/ceveto/frontend-new/apps/dashboard --verbose --diff
 ```
 
 ## Workflow
