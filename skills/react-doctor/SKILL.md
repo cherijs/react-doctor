@@ -11,7 +11,7 @@ Scans your React codebase for security, performance, correctness, and architectu
 ## Usage
 
 ```bash
-npx -y react-doctor@latest . --verbose --diff
+node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js . --verbose --diff
 ```
 
 ## Workflow

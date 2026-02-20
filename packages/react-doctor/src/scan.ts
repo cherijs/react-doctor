@@ -5,7 +5,6 @@ import { join } from "node:path";
 import { performance } from "node:perf_hooks";
 import {
   MILLISECONDS_PER_SECOND,
-  OFFLINE_FLAG_MESSAGE,
   OFFLINE_MESSAGE,
   OXLINT_NODE_REQUIREMENT,
   OXLINT_RECOMMENDED_NODE_MAJOR,
@@ -550,8 +549,8 @@ export const scan = async (
   if (didDeadCodeFail) skippedChecks.push("dead code");
   const hasSkippedChecks = skippedChecks.length > 0;
 
-  const scoreResult = options.offline ? null : await calculateScore(diagnostics);
-  const noScoreMessage = options.offline ? OFFLINE_FLAG_MESSAGE : OFFLINE_MESSAGE;
+  const scoreResult = await calculateScore(diagnostics);
+  const noScoreMessage = OFFLINE_MESSAGE;
 
   if (options.scoreOnly) {
     if (scoreResult) {

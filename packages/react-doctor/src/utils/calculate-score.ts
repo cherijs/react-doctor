@@ -1,16 +1,13 @@
 import {
   ERROR_ESTIMATED_FIX_RATE,
   ERROR_RULE_PENALTY,
-  ESTIMATE_SCORE_API_URL,
   PERFECT_SCORE,
-  SCORE_API_URL,
   SCORE_GOOD_THRESHOLD,
   SCORE_OK_THRESHOLD,
   WARNING_ESTIMATED_FIX_RATE,
   WARNING_RULE_PENALTY,
 } from "../constants.js";
 import type { Diagnostic, EstimatedScoreResult, ScoreResult } from "../types.js";
-import { proxyFetch } from "./proxy-fetch.js";
 
 const getScoreLabel = (score: number): string => {
   if (score >= SCORE_GOOD_THRESHOLD) return "Great";
@@ -41,7 +38,15 @@ const scoreFromRuleCounts = (errorRuleCount: number, warningRuleCount: number): 
   return Math.max(0, Math.round(PERFECT_SCORE - penalty));
 };
 
-const estimateScoreLocally = (diagnostics: Diagnostic[]): EstimatedScoreResult => {
+export const calculateScore = async (diagnostics: Diagnostic[]): Promise<ScoreResult | null> => {
+  const { errorRuleCount, warningRuleCount } = countUniqueRules(diagnostics);
+  const score = scoreFromRuleCounts(errorRuleCount, warningRuleCount);
+  return { score, label: getScoreLabel(score) };
+};
+
+export const fetchEstimatedScore = async (
+  diagnostics: Diagnostic[],
+): Promise<EstimatedScoreResult | null> => {
   const { errorRuleCount, warningRuleCount } = countUniqueRules(diagnostics);
 
   const currentScore = scoreFromRuleCounts(errorRuleCount, warningRuleCount);
@@ -62,38 +67,4 @@ const estimateScoreLocally = (diagnostics: Diagnostic[]): EstimatedScoreResult =
     estimatedScore,
     estimatedLabel: getScoreLabel(estimatedScore),
   };
-};
-
-export const calculateScore = async (diagnostics: Diagnostic[]): Promise<ScoreResult | null> => {
-  try {
-    const response = await proxyFetch(SCORE_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ diagnostics }),
-    });
-
-    if (!response.ok) return null;
-
-    return (await response.json()) as ScoreResult;
-  } catch {
-    return null;
-  }
-};
-
-export const fetchEstimatedScore = async (
-  diagnostics: Diagnostic[],
-): Promise<EstimatedScoreResult | null> => {
-  try {
-    const response = await proxyFetch(ESTIMATE_SCORE_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ diagnostics }),
-    });
-
-    if (!response.ok) return estimateScoreLocally(diagnostics);
-
-    return (await response.json()) as EstimatedScoreResult;
-  } catch {
-    return estimateScoreLocally(diagnostics);
-  }
 };
