@@ -12,6 +12,10 @@
   "bin": {
     "react-doctor": "packages/react-doctor/dist/cli.js"
   },
+  "files": [
+    "packages/react-doctor/dist",
+    "packages/react-doctor/package.json"
+  ],
   "scripts": {
     "dev": "pnpm --filter react-doctor run dev",
     "build": "pnpm --filter react-doctor run build",
