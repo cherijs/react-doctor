@@ -1,5 +1,6 @@
 {
   "name": "@cherijs/react-doctor",
+  "version": "0.0.28",
   "homepage": "https://github.com/cherijs/react-doctor#readme",
   "bugs": {
     "url": "https://github.com/cherijs/react-doctor/issues"
