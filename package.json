@@ -1,6 +1,5 @@
 {
-  "name": "react-doctor",
-  "private": true,
+  "name": "@cherijs/react-doctor",
   "homepage": "https://github.com/cherijs/react-doctor#readme",
   "bugs": {
     "url": "https://github.com/cherijs/react-doctor/issues"
