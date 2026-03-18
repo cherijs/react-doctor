@@ -1,13 +1,16 @@
 {
   "name": "react-doctor",
   "private": true,
-  "homepage": "https://github.com/aidenybai/react-doctor#readme",
+  "homepage": "https://github.com/cherijs/react-doctor#readme",
   "bugs": {
-    "url": "https://github.com/aidenybai/react-doctor/issues"
+    "url": "https://github.com/cherijs/react-doctor/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aidenybai/react-doctor.git"
+    "url": "https://github.com/cherijs/react-doctor.git"
+  },
+  "bin": {
+    "react-doctor": "packages/react-doctor/dist/cli.js"
   },
   "scripts": {
     "dev": "pnpm --filter react-doctor run dev",
