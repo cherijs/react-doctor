@@ -1,5 +1,5 @@
 node_modules
-dist
+# dist is tracked for GitHub install support (npm install github:cherijs/react-doctor)
 *.log
 .DS_Store
 .agents

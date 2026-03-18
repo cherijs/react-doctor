@@ -1,0 +1,7 @@
+# Override .gitignore for npm — include dist
+.changeset
+.github
+assets
+website
+*.md
+!README.md
