@@ -10,17 +10,38 @@ Scans your React codebase for security, performance, correctness, and architectu
 
 ## Usage
 
-Pass the **absolute path** to the project directory being scanned (never use `.`):
+If react-doctor is installed as a project devDependency (`github:cherijs/react-doctor`):
 
 ```bash
-node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js <PROJECT_DIR> --verbose --diff
+npx react-doctor <PROJECT_DIR> --verbose --diff --offline
 ```
 
-Example: to scan the dashboard app:
+If not installed as dependency, use the local build:
+
 ```bash
-node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js /Users/cherijs/_REPO/ceveto/frontend-new/apps/dashboard --verbose --diff
+node /Users/cherijs/_REPO/react-doctor/packages/react-doctor/dist/cli.js <PROJECT_DIR> --verbose --diff --offline
+```
+
+### Flags
+
+- `--verbose` — show affected files and line numbers
+- `--diff` — only scan changed files (much faster)
+- `--offline` — skip network requests
+- `--score` — output only the numeric score
+- `-y` — skip interactive prompts
+
+### Examples
+
+Scan the Uniwire dashboard:
+```bash
+cd frontend/apps/dashboard && npx react-doctor . --verbose --diff --offline
+```
+
+Full scan of any React project:
+```bash
+npx react-doctor /path/to/project --verbose --offline
 ```
 
 ## Workflow
 
-Run after making changes to catch issues early. Fix errors first, then re-run to verify the score improved.
+Run after making changes to catch issues early. Fix errors first (they weigh most in scoring), then warnings. Re-run to verify the score improved. Target: 75+.
